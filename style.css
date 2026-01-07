@@ -3,34 +3,66 @@ body {
   height: 100vh;
   background: radial-gradient(circle, #222, #000);
   display: flex;
-  justify-content: centre;
-  align-items: centre;
+  justify-content: center;
+  align-items: center;
   font-family: Arial, sans-serif;
   color: white;
 }
 
 .container {
-  text-align: centre;
+  min-height: 10svh;
+  text-align: center;
+  align-items: center;
+}
+
+.title {
+  font-size: clamp(1.8rem, 6vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 4vh;
+  text-align: center;
 }
 
 #bigButton {
-  font-size: 2rem;
-  padding: 30px 60px;
+  width: min(85vw, 85svh);
+  height: min(85vw, 85svh);
+
+  border-radius: 50%;
   border: none;
-  border-radius: 12px;
-  background: red;
+
+  font-size: clamp(2rem, 8vw, 4rem);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+
+  background: radial-gradient(
+    circle at top,
+    #ff5555,
+    #b00000
+  );
+
   color: white;
-  box-shadow: 0 6px #900;
+
+  box-shadow:
+    0 16px 0 #700,
+    0 24px 40px rgba(0,0,0,0.6);
+
   cursor: pointer;
-  transition: transform 0.1s, box-shadow 0.1s;
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.1s ease;
 }
 
 #bigButton:active {
-  transform: translateY(4px);
-  box-shadow: 0 2px #900;
+  transform: translateY(10px);
+  box-shadow:
+    0 6px 0 #700,
+    0 14px 24px rgba(0,0,0,0.6);
 }
+
 
 #status {
   margin-top: 20px;
+  align-items: center;
+  font-size: clamp(irem, 7vw,3.5rem);
   opacity: 0.8;
 }
