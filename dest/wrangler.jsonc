@@ -1,7 +1,7 @@
 {
-	"name": "worker-name",
+	"name": "button-site",
 	"compatibility_date": "2026-01-07",
 	"assets": {
-	      "directory": "./dist"
+	      "directory": "./dest"
 	    }
 }
