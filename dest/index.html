@@ -16,23 +16,24 @@
 </head>
 <body>
   <div class="container">
-    <div class="title">PRESS THE BUTTON TO GENERATE INNOVATION ENERGY!</div>
+    <!-- Sci-Fi Frame with Title -->
+    <div class="frame-wrapper">
+      <div class="sci-fi-frame">
+        <div class="title">PRESS THE BUTTON TO GENERATE INNOVATION ENERGY!</div>
+      </div>
+    </div>
 
+    <!-- Neon Button -->
     <button id="bigButton" aria-label="Press button">
       <span class="button-text">
-      TAP<br>HERE
-    </span>
+        TAP<br>HERE
+      </span>
     </button>
 
+    <!-- Status Text -->
     <div id="status">Unleash your power to ELEVATE!</div>
   </div>
-  <script>
-  const button = document.getElementById("bigButton");
-
-  button.addEventListener("click", () => {
-    button.classList.toggle("active");
-  });
-</script>
+  <script src="script.js"></script>
 
 </body>
 </html>

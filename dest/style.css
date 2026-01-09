@@ -1,234 +1,415 @@
-/* =========================
-   GLOBAL SAFETY
-   ========================= */
+  /* =========================
+       GLOBAL SAFETY
+       ========================= */
+    html, body {
+      touch-action: manipulation;
+    }
 
-html, body {
-  touch-action: manipulation;
-}
+    * {
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-* {
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-tap-highlight-color: transparent;
-}
+    /* =========================
+       PAGE LAYOUT
+       ========================= */
+    body {
+      margin: 0;
+      height: 100svh;
+      background-image: url("BG_1.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
 
-/* =========================
-   PAGE LAYOUT
-   ========================= */
+    .container {
+      min-height: 10svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      backdrop-filter: blur(2px);
+    }
 
-body {
-  margin: 0;
-  height: 100svh;
+    /* =========================
+       SCI-FI FRAME - HTML STRUCTURE BASED
+       ========================= */
+    .frame-wrapper {
+      position: relative;
+      margin-bottom: clamp(20px, 3vh, 40px);
+      width: 85vw;
+      max-width: 600px;
+    }
 
-  /* 🔥 YOUR BACKGROUND IMAGE */
-  background-image: url("BG_1.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+    .sci-fi-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 2.5 / 1;
+      max-height: 25vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: 
+        radial-gradient(ellipse at center, rgba(0, 180, 255, 0.3) 0%, rgba(0, 100, 180, 0.15) 40%, transparent 80%),
+        rgba(0, 30, 60, 0.3);
+      border: 2px solid #0af;
+      border-radius: clamp(15px, 2.5vw, 25px);
+      box-shadow: 
+        0 0 30px rgba(0, 170, 255, 0.5),
+        0 0 60px rgba(0, 170, 255, 0.3),
+        inset 0 0 100px rgba(0, 200, 255, 0.2);
+    }
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    /* Corner pieces and bars - need HTML elements */
+    .corner {
+      position: absolute;
+      width: clamp(50px, 8vw, 80px);
+      height: clamp(40px, 6vw, 60px);
+      border: clamp(2px, 0.4vw, 3px) solid #0af;
+      box-shadow: 
+        0 0 15px rgba(0, 170, 255, 0.8),
+        0 0 25px rgba(0, 170, 255, 0.5),
+        inset 0 0 15px rgba(0, 170, 255, 0.3);
+      z-index: 10;
+    }
 
-  font-family: Arial, sans-serif;
-  color: white;
-}
+    .corner::before {
+      content: "";
+      position: absolute;
+      background: rgba(0, 170, 255, 0.15);
+      border: clamp(1px, 0.2vw, 2px) solid rgba(0, 170, 255, 0.4);
+    }
 
-.container {
-  min-height: 10svh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+    /* Top left corner */
+    .corner-tl {
+      top: -2px;
+      left: -2px;
+      border-right: none;
+      border-bottom: none;
+      border-radius: clamp(15px, 2.5vw, 25px) 0 0 0;
+      clip-path: polygon(0 0, 100% 0, 100% 20px, 25px 20px, 25px 25px, 20px 25px, 20px 100%, 0 100%);
+    }
 
-  /* Helps text pop on busy backgrounds */
-  backdrop-filter: blur(2px);
-}
+    .corner-tl::before {
+      top: clamp(5px, 1vw, 8px);
+      left: clamp(5px, 1vw, 8px);
+      width: clamp(10px, 2vw, 15px);
+      height: clamp(10px, 2vw, 15px);
+      clip-path: polygon(0 0, 100% 0, 100% 40%, 40% 40%, 40% 100%, 0 100%);
+    }
 
-/* =========================
-   TEXT
-   ========================= */
+    /* Top right corner */
+    .corner-tr {
+      top: -2px;
+      right: -2px;
+      border-left: none;
+      border-bottom: none;
+      border-radius: 0 clamp(15px, 2.5vw, 25px) 0 0;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 80% 100%, 80% 25px, 75% 25px, 75% 20px, 0 20px);
+    }
 
-.title {
-  font-size: clamp(1.8rem, 6vw, 3.5rem);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  margin-bottom: 4vh;
-  text-shadow: 0 0 12px rgba(255,255,255,0.5);
-}
+    .corner-tr::before {
+      top: clamp(5px, 1vw, 8px);
+      right: clamp(5px, 1vw, 8px);
+      width: clamp(10px, 2vw, 15px);
+      height: clamp(10px, 2vw, 15px);
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 60% 100%, 60% 40%, 0 40%);
+    }
 
-#status {
-  margin-top: 20px;
-  font-size: clamp(1rem, 7vw, 3.5rem);
-  opacity: 0.9;
-  text-shadow: 0 0 10px rgba(255,255,255,0.4);
-}
+    /* Bottom left corner */
+    .corner-bl {
+      bottom: -2px;
+      left: -2px;
+      border-right: none;
+      border-top: none;
+      border-radius: 0 0 0 clamp(15px, 2.5vw, 25px);
+      clip-path: polygon(0 0, 20px 0, 20px 75%, 25px 75%, 25px 80%, 100% 80%, 100% 100%, 0 100%);
+    }
 
- /* =========================
-   NEON BUTTON (STRONG)
-   ========================= */
+    .corner-bl::before {
+      bottom: clamp(5px, 1vw, 8px);
+      left: clamp(5px, 1vw, 8px);
+      width: clamp(10px, 2vw, 15px);
+      height: clamp(10px, 2vw, 15px);
+      clip-path: polygon(0 0, 40% 0, 40% 60%, 100% 60%, 100% 100%, 0 100%);
+    }
 
-/* #bigButton {
-  width: min(85vw, 85vh);
-  height: min(85vw, 85vh);
+    /* Bottom right corner */
+    .corner-br {
+      bottom: -2px;
+      right: -2px;
+      border-left: none;
+      border-top: none;
+      border-radius: 0 0 clamp(15px, 2.5vw, 25px) 0;
+      clip-path: polygon(0 80%, 75% 80%, 75% 75%, 80% 75%, 80% 0, 100% 0, 100% 100%, 0 100%);
+    }
 
-  border-radius: 50%;
-  border: 4px solid #ff4444;
+    .corner-br::before {
+      bottom: clamp(5px, 1vw, 8px);
+      right: clamp(5px, 1vw, 8px);
+      width: clamp(10px, 2vw, 15px);
+      height: clamp(10px, 2vw, 15px);
+      clip-path: polygon(0 60%, 100% 60%, 100% 100%, 60% 100%, 60% 0, 0 0);
+    }
 
-  background: radial-gradient(circle at top, #ff8888, #a80000);
-  color: white;
+    /* Glow bars */
+    .glow-bar {
+      position: absolute;
+      height: clamp(3px, 0.5vw, 5px);
+      background: linear-gradient(90deg, transparent, #0af 10%, #0af 90%, transparent);
+      box-shadow: 
+        0 0 20px rgba(0, 170, 255, 1),
+        0 0 40px rgba(0, 170, 255, 0.6);
+      animation: pulse 2s ease-in-out infinite;
+    }
 
-  font-size: clamp(2rem, 8vw, 4rem);
-  font-weight: 800;
-  letter-spacing: 0.12em;
+    .glow-bar-top {
+      top: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: clamp(30%, 35%, 40%);
+    }
 
-  box-shadow:
-    0 0 15px rgba(255, 70, 70, 0.9),
-    0 0 35px rgba(255, 70, 70, 0.8),
-    0 0 60px rgba(255, 70, 70, 0.7),
-    0 18px 0 #700,
-    0 30px 50px rgba(0,0,0,0.6);
+    .glow-bar-bottom {
+      bottom: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: clamp(30%, 35%, 40%);
+    }
 
-  cursor: pointer;
-  transition:
-    transform 0.12s ease,
-    box-shadow 0.12s ease;
+    .glow-bar-left {
+      left: -2px;
+      top: 50%;
+      transform: translateY(-50%) rotate(90deg);
+      width: clamp(25%, 30%, 35%);
+      transform-origin: left center;
+    }
 
-  outline: none;
-} */
+    .glow-bar-right {
+      right: -2px;
+      top: 50%;
+      transform: translateY(-50%) rotate(90deg);
+      width: clamp(25%, 30%, 35%);
+      transform-origin: right center;
+    }
 
-/* Press effect */
-/* #bigButton:active {
-  transform: translateY(12px);
-  box-shadow:
-    0 0 12px rgba(0, 70, 70, 0.8),
-    0 0 25px rgba(0, 70, 70, 0.7),
-    0 10px 0 #700,
-    0 20px 30px rgba(0,0,0,0.6);
-} */ 
+    @keyframes pulse {
+      0%, 100% { 
+        opacity: 1;
+      }
+      50% { 
+        opacity: 0.5;
+      }
+    }
 
-/* =========================
-   OUTLINE GLOW BUTTON
-   ========================= */
-/* =========================
-   NEON CIRCULAR BUTTON
-   ========================= */
-:root {
-  --inner-fill: #000;      /* matte black centre */
-  --outer-fill: #808080;   /* grey rim */
-  --inner-ring: #00ffd5;   /* neon inner ring */
-  --outer-glow: #00ffd5;   /* neon outer glow */
-}
+    /* =========================
+       FRAME TEXT
+       ========================= */
+    .title {
+      font-size: clamp(1rem, 3.5vw, 2rem);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      margin: 0;
+      line-height: 1.2;
+      color: #00ffff;
+      text-shadow: 
+        0 0 10px rgba(0, 255, 255, 0.8),
+        0 0 20px rgba(0, 255, 255, 0.4);
+    }
 
-#bigButton {
-  position: relative;
-  width: min(70vw, 70vh);
-  height: min(70vw, 70vh);
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-  outline: none;
+    /* =========================
+       NEON CIRCULAR BUTTON
+       ========================= */
+    :root {
+      --inner-fill: #000;
+      --outer-fill: #808080;
+      --inner-ring: #00ffd5;
+      --outer-glow: #00ffd5;
+    }
 
-  /* Two-tone solid button (centre + rim) */
-  background: radial-gradient(circle,
-    var(--inner-fill) 0%, 
-    var(--inner-fill) 60%,   /* centre radius */
-    var(--outer-fill) 60%, 
-    var(--outer-fill) 100%   /* rim to edge */
-  );
+    #bigButton {
+      position: relative;
+      width: clamp(200px, 50vw, 300px);
+      height: clamp(200px, 50vw, 300px);
+      max-width: 50vh;
+      max-height: 50vh;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      margin: clamp(20px, 3vh, 30px) 0;
 
-  /* Glassy highlight overlay */
-  background-blend-mode: overlay;
+      background: radial-gradient(circle,
+        var(--inner-fill) 0%, 
+        var(--inner-fill) 60%,
+        var(--outer-fill) 60%, 
+        var(--outer-fill) 100%
+      );
 
-  box-shadow:
-    inset 0 8px 15px rgba(255,255,255,0.1), /* subtle glass highlight */
-    0 0 20px rgba(0,255,220,0.25);          /* outer neon glow */
+      background-blend-mode: overlay;
 
-  transition: transform 0.15s ease;
-}
+      box-shadow:
+        inset 0 8px 15px rgba(255,255,255,0.1),
+        0 0 20px rgba(0,255,220,0.25);
 
-/* INNER NEON RING */
-#bigButton::before {
-  content: "";
-  position: absolute;
-  inset: 8%;                /* matches inner ring size */
-  border-radius: 100%;
-  border: 8px solid var(--inner-ring);
-  box-shadow:
-    inset 0 0 12px rgba(255,255,255,0.35),
-    0 0 30px var(--inner-ring);
-  pointer-events: none;
-  z-index: 0;
-}
+      transition: transform 0.15s ease;
+    }
 
-/* OUTER GLOW RING */
-#bigButton::after {
-  content: "";
-  position: absolute;
-  inset: -2%;
-  border-radius: 50%;
-  border: 3px solid var(--outer-glow);
-  box-shadow:
-    0 0 20px var(--outer-glow),
-    0 0 60px rgba(0,255,220,0.3);
-  opacity: 0.6;
-  pointer-events: none;
-  transition: opacity 0.25s ease;
-  z-index: 0;
-}
+    #bigButton::before {
+      content: "";
+      position: absolute;
+      inset: 8%;
+      border-radius: 100%;
+      border: clamp(5px, 1vw, 8px) solid var(--inner-ring);
+      box-shadow:
+        inset 0 0 12px rgba(255,255,255,0.35),
+        0 0 30px var(--inner-ring);
+      pointer-events: none;
+      z-index: 0;
+    }
 
-/* BUTTON TEXT */
-.button-text {
-  position: relative;
-  font-size: 20px;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  color: #cffff6;
-  text-align: center;
-  letter-spacing: 0.12em;
-  text-shadow: 0 0 10px rgba(0,255,220,0.6);
-}
+    #bigButton::after {
+      content: "";
+      position: absolute;
+      inset: -2%;
+      border-radius: 50%;
+      border: clamp(2px, 0.4vw, 3px) solid var(--outer-glow);
+      box-shadow:
+        0 0 20px var(--outer-glow),
+        0 0 60px rgba(0,255,220,0.3);
+      opacity: 0.6;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      z-index: 0;
+    }
 
-/* TAP FEEDBACK */
-#bigButton:active {
-  transform: scale(0.97);
-}
+    .button-text {
+      position: relative;
+      font-size: clamp(16px, 4vw, 24px);
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: #cffff6;
+      text-align: center;
+      letter-spacing: 0.12em;
+      text-shadow: 0 0 10px rgba(0,255,220,0.6);
+    }
 
-/* LATCHED GLOW STATE */
-#bigButton.active::before {
-  box-shadow:
-    0 0 20px var(--inner-ring),
-    0 0 40px var(--inner-ring);
-}
+    #bigButton:active {
+      transform: scale(0.97);
+    }
 
-#bigButton.active::after {
-  opacity: 1;
-  box-shadow:
-    0 0 30px var(--outer-glow),
-    0 0 90px var(--outer-glow);
-}
-/* =========================
-   LANDSCAPE ADJUSTMENTS
-   ========================= */
+    #bigButton.active::before {
+      box-shadow:
+        0 0 20px var(--inner-ring),
+        0 0 40px var(--inner-ring);
+    }
 
-@media (orientation: landscape) {
-  #bigButton {
-    width: clamp(120px, 40vh, 250px);
-    height: clamp(120px, 40vh, 250px);
-    font-size: clamp(1.4rem, 5vh, 2.5rem);
-  }
+    #bigButton.active::after {
+      opacity: 1;
+      box-shadow:
+        0 0 30px var(--outer-glow),
+        0 0 90px var(--outer-glow);
+    }
 
-  .title {
-    font-size: clamp(1.8rem, 4vw, 2.5rem);
-    margin-bottom: 1.5vh;
-  }
+    /* =========================
+       STATUS TEXT
+       ========================= */
+    #status {
+      margin-top: clamp(15px, 2vh, 20px);
+      font-size: clamp(0.9rem, 3vw, 1.5rem);
+      opacity: 0.9;
+      line-height: 1.3;
+      text-shadow: 0 0 10px rgba(255,255,255,0.4);
+      padding: 0 5vw;
+    }
 
-  #status {
-    font-size: clamp(1rem, 3.5vw, 2rem);
-    margin-top: 2vh;
-  }
-}
+    /* =========================
+       LANDSCAPE ADJUSTMENTS
+       ========================= */
+    @media (orientation: landscape) {
+      .frame-wrapper {
+        margin-bottom: clamp(15px, 2vh, 25px);
+        max-width: 500px;
+      }
+
+      .sci-fi-frame {
+        max-height: 20vh;
+        padding: clamp(15px, 3vh, 35px) clamp(15px, 4vw, 35px);
+      }
+
+      .title {
+        font-size: clamp(0.9rem, 2.5vw, 1.5rem);
+      }
+
+      #bigButton {
+        width: clamp(150px, 35vh, 250px);
+        height: clamp(150px, 35vh, 250px);
+        margin: clamp(15px, 2vh, 25px) 0;
+      }
+
+      .button-text {
+        font-size: clamp(14px, 3vh, 20px);
+      }
+
+      #status {
+        font-size: clamp(0.8rem, 2.5vw, 1.2rem);
+        margin-top: clamp(10px, 1.5vh, 15px);
+      }
+
+      .corner {
+        width: clamp(40px, 7vw, 60px);
+        height: clamp(30px, 5vw, 50px);
+      }
+    }
+
+    /* =========================
+       VERY SMALL SCREENS
+       ========================= */
+    @media (max-height: 600px) {
+      .sci-fi-frame {
+        max-height: 18vh;
+        padding: clamp(15px, 3vh, 30px) clamp(10px, 4vw, 25px);
+      }
+
+      .title {
+        font-size: clamp(0.8rem, 3vw, 1.2rem);
+      }
+
+      #bigButton {
+        width: clamp(150px, 40vw, 200px);
+        height: clamp(150px, 40vw, 200px);
+        max-width: 40vh;
+        max-height: 40vh;
+      }
+
+      #status {
+        font-size: clamp(0.75rem, 2.5vw, 1rem);
+      }
+    }
+
+    /* =========================
+       VERY TALL SCREENS
+       ========================= */
+    @media (min-aspect-ratio: 1/2) and (orientation: portrait) {
+      .sci-fi-frame {
+        max-height: 20vh;
+      }
+
+      #bigButton {
+        width: clamp(200px, 45vw, 280px);
+        height: clamp(200px, 45vw, 280px);
+        max-width: 35vh;
+        max-height: 35vh;
+      }
+    }
