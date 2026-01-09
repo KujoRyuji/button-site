@@ -19,10 +19,20 @@
     <div class="title">PRESS THE BUTTON TO GENERATE INNOVATION ENERGY!</div>
 
     <button id="bigButton" aria-label="Press button">
+      <span class="button-text">
       TAP<br>HERE
+    </span>
     </button>
 
     <div id="status">Unleash your power to ELEVATE!</div>
   </div>
+  <script>
+  const button = document.getElementById("bigButton");
+
+  button.addEventListener("click", () => {
+    button.classList.toggle("active");
+  });
+</script>
+
 </body>
 </html>

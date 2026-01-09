@@ -1,6 +1,5 @@
-const button = document.getElementById("bigButton");
-const status = document.getElementById("status");
+  const button = document.getElementById("bigButton");
 
-button.addEventListener("click", () => {
-  status.textContent = "ACTIVATED!";
-});
+  button.addEventListener("click", () => {
+    button.classList.toggle("glow-on");
+  });

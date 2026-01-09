@@ -64,11 +64,11 @@ body {
   text-shadow: 0 0 10px rgba(255,255,255,0.4);
 }
 
-/* =========================
+ /* =========================
    NEON BUTTON (STRONG)
    ========================= */
 
-#bigButton {
+/* #bigButton {
   width: min(85vw, 85vh);
   height: min(85vw, 85vh);
 
@@ -95,29 +95,122 @@ body {
     box-shadow 0.12s ease;
 
   outline: none;
-}
+} */
 
 /* Press effect */
-#bigButton:active {
+/* #bigButton:active {
   transform: translateY(12px);
   box-shadow:
     0 0 12px rgba(0, 70, 70, 0.8),
     0 0 25px rgba(0, 70, 70, 0.7),
     0 10px 0 #700,
     0 20px 30px rgba(0,0,0,0.6);
+} */ 
+
+/* =========================
+   OUTLINE GLOW BUTTON
+   ========================= */
+
+:root {
+  --btn-color: rgb(11, 58, 90);     /* base solid colour */
+  --neon: #00ffd5;         /* glow colour */
 }
 
-/* Focus handling (no square) */
-#bigButton:focus {
+#bigButton {
+  position: relative;
+  width: min(85vw, 85vh);
+  height: min(85vw, 85vh);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
   outline: none;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,0.35),
+      rgba(255,255,255,0.12),
+      rgba(255,255,255,0.04)
+    ),
+    radial-gradient(
+      circle at bottom,
+      rgba(0,0,0,0.35),
+      transparent 60%
+    ),
+    var(--btn-color);
+
+  box-shadow:
+    inset 0 12px 18px rgba(255,255,255,0.15),
+    inset 0 -18px 28px rgba(0,0,0,0.45),
+    0 0 20px rgba(0,255,220,0.25);
+
+  transition: transform 0.15s ease;
 }
 
-#bigButton:focus-visible {
+/* INNER RING */
+#bigButton::before {
+  content: "";
+  position: absolute;
+  inset: 10%;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 255, 220, 0.8);
   box-shadow:
-    0 0 0 6px rgba(255, 70, 70, 0.6),
-    0 0 40px rgba(255, 70, 70, 1),
-    0 18px 0 #700;
+    inset 0 0 12px rgba(255,255,255,0.35),
+    0 0 12px rgba(0,255,220,0.8);
 }
+
+/* OUTER GLOW RING */
+#bigButton::after {
+  content: "";
+  position: absolute;
+  inset: -3%;
+  border-radius: 50%;
+  border: 3px solid var(--neon);
+  box-shadow:
+    0 0 20px var(--neon),
+    0 0 60px rgba(0,255,220,0.3);
+  opacity: 0.6;
+  transition: opacity 0.25s ease;
+}
+
+/* TEXT */
+.button-text {
+  position: relative;
+  font-size: 20px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #cffff6;
+  text-align: center;
+  letter-spacing: 0.12em;
+  text-shadow: 0 0 10px rgba(0,255,220,0.6);
+}
+
+/* TAP FEEDBACK */
+#bigButton:active {
+  transform: scale(0.97);
+}
+
+/* =========================
+   LATCHED GLOW STATE
+   ========================= */
+
+#bigButton.active::after {
+  opacity: 1;
+  box-shadow:
+    0 0 30px var(--neon),
+    0 0 90px var(--neon);
+}
+
+#bigButton.active::before {
+  box-shadow:
+    0 0 20px rgba(0,255,220,1),
+    0 0 40px rgba(0,255,220,1);
+}
+
 
 /* =========================
    LANDSCAPE ADJUSTMENTS
