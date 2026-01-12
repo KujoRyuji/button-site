@@ -3,6 +3,7 @@
        ========================= */
     html, body {
       touch-action: manipulation;
+      overflow: hidden;
     }
 
     * {
@@ -16,16 +17,29 @@
        ========================= */
     body {
       margin: 0;
-      height: 100svh;
+      height: 100vh; /* Use full viewport height */
       background-image: url("bg.png");
-      background-size: cover;
+      background-size: cover; /* Ensures background image scales dynamically */
       background-position: center;
       background-repeat: no-repeat;
+      font-family: Arial, sans-serif;
+      color: white;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: Arial, sans-serif;
-      color: white;
+      overflow: hidden;
+    }
+
+    /* Container that holds the button and image */
+    .container {
+      position: relative; /* So it doesn't interfere with background */
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
     }
 
     .logo {
@@ -40,7 +54,17 @@
 
     .title-img {
       position: absolute;
-      top: 15%;
+      top: 9%;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 100%;
+      width: 80vw;
+      height: auto;
+    }
+
+      .title-img-bottom {
+      position: absolute;
+      top: 80%;
       left: 50%;
       transform: translateX(-50%);
       max-width: 100%;
@@ -48,202 +72,89 @@
       height: auto;
     }
 
-    .container {
-      min-height: 10svh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      backdrop-filter: blur(2px);
+    .outline {
+      position: absolute;
+      top: 4%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw;
+      height: 95vh;
+      object-fit: fill;
+      z-index: -1;
+      bottom: 5vh;
     }
 
     /* =========================
        NEON CIRCULAR BUTTON
        ========================= */
-    :root {
-      --inner-fill: #000;
-      --outer-fill: #808080;
-      --inner-ring: #00ffd5;
-      --outer-glow: #00ffd5;
+    .button-wrapper {
+      position: absolute;
+      top: 60%;
+      transform: translateY(-50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     #bigButton {
-      position: absolute;
-      top: 75%;
-      width: clamp(200px, 50vw, 300px);
-      height: clamp(200px, 50vw, 300px);
-      max-width: 50vh;
-      max-height: 50vh;
-      border-radius: 50%;
-      border: none;
+      width: 80vw;
+      height: auto;
+      object-fit: cover;
+
       cursor: pointer;
-      outline: none;
-      margin: clamp(20px, 3vh, 30px) 0;
 
-      background: radial-gradient(circle,
-        var(--inner-fill) 0%, 
-        var(--inner-fill) 60%,
-        var(--outer-fill) 60%, 
-        var(--outer-fill) 100%
-      );
-
-      background-blend-mode: overlay;
-
-      box-shadow:
-        inset 0 8px 15px rgba(255,255,255,0.1),
-        0 0 20px rgba(0,255,220,0.25);
-
-      transition: transform 0.15s ease;
+      display: block;
+      margin: 0 auto;
+      
+      -webkit-tap-highlight-color: transparent;
+      transition: filter 2s ease-in-out;
     }
-
-    #bigButton::before {
-      content: "";
-      position: absolute;
-      inset: 8%;
-      border-radius: 100%;
-      border: clamp(5px, 1vw, 8px) solid var(--inner-ring);
-      box-shadow:
-        inset 0 0 12px rgba(255,255,255,0.35),
-        0 0 30px var(--inner-ring);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    #bigButton::after {
-      content: "";
-      position: absolute;
-      inset: -2%;
-      border-radius: 50%;
-      border: clamp(2px, 0.4vw, 3px) solid var(--outer-glow);
-      box-shadow:
-        0 0 20px var(--outer-glow),
-        0 0 60px rgba(0,255,220,0.3);
-      opacity: 0.6;
-      pointer-events: none;
-      transition: opacity 0.25s ease;
-      z-index: 0;
-    }
-
-    .button-text {
-      position: relative;
-      font-size: clamp(16px, 4vw, 24px);
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      color: #cffff6;
-      text-align: center;
-      letter-spacing: 0.12em;
-      text-shadow: 0 0 10px rgba(0,255,220,0.6);
-    }
-
-    #bigButton:active {
-      transform: scale(0.97);
-    }
-
-    #bigButton.active::before {
-      box-shadow:
-        0 0 20px var(--inner-ring),
-        0 0 40px var(--inner-ring);
-    }
-
-    #bigButton.active::after {
-      opacity: 1;
-      box-shadow:
-        0 0 30px var(--outer-glow),
-        0 0 90px var(--outer-glow);
-    }
-
-    /* =========================
-       STATUS TEXT
-       ========================= */
-    #status {
-      margin-top: clamp(15px, 2vh, 20px);
-      font-size: clamp(0.9rem, 3vw, 1.5rem);
-      opacity: 0.9;
-      line-height: 1.3;
-      text-shadow: 0 0 10px rgba(255,255,255,0.4);
-      padding: 0 5vw;
-    }
-
-    /* =========================
-       LANDSCAPE ADJUSTMENTS
-       ========================= */
-    @media (orientation: landscape) {
-      .frame-wrapper {
-        margin-bottom: clamp(15px, 2vh, 25px);
-        max-width: 500px;
+  /* =========================
+   Breathing effect for LED glow (animated) 
+   ========================= */
+    /* @keyframes breath {
+      0% {
+        filter: drop-shadow(0 0 10px rgba(0, 255, 220, 0.7))
+                drop-shadow(0 0 30px rgba(0, 255, 220, 0.5))
+                drop-shadow(0 0 60px rgba(0, 255, 220, 0.3));
       }
-
-      .sci-fi-frame {
-        max-height: 20vh;
-        padding: clamp(15px, 3vh, 35px) clamp(15px, 4vw, 35px);
+      50% {
+        filter: drop-shadow(0 0 15px rgba(0, 255, 220, 0.9))
+                drop-shadow(0 0 40px rgba(0, 255, 220, 0.7))
+                drop-shadow(0 0 90px rgba(0, 255, 220, 0.5));
       }
-
-      .title {
-        font-size: clamp(0.9rem, 2.5vw, 1.5rem);
-      }
-
-      #bigButton {
-        width: clamp(150px, 35vh, 250px);
-        height: clamp(150px, 35vh, 250px);
-        margin: clamp(15px, 2vh, 25px) 0;
-      }
-
-      .button-text {
-        font-size: clamp(14px, 3vh, 20px);
-      }
-
-      #status {
-        font-size: clamp(0.8rem, 2.5vw, 1.2rem);
-        margin-top: clamp(10px, 1.5vh, 15px);
-      }
-
-      .corner {
-        width: clamp(40px, 7vw, 60px);
-        height: clamp(30px, 5vw, 50px);
+      100% {
+        filter: drop-shadow(0 0 10px rgba(0, 255, 220, 0.7))
+                drop-shadow(0 0 30px rgba(0, 255, 220, 0.5))
+                drop-shadow(0 0 60px rgba(0, 255, 220, 0.3));
       }
     }
 
-    /* =========================
-       VERY SMALL SCREENS
-       ========================= */
-    @media (max-height: 600px) {
-      .sci-fi-frame {
-        max-height: 18vh;
-        padding: clamp(15px, 3vh, 30px) clamp(10px, 4vw, 25px);
-      }
+    #bigButton.led-on {
+      filter: drop-shadow(0 0 15px rgba(0, 255, 220, 1))
+              drop-shadow(0 0 35px rgba(0, 255, 220, 0.9))
+              drop-shadow(0 0 80px rgba(0, 255, 220, 0.6));
+    } */
+/* =========================
+   Mobile Responsiveness
+   ========================= */
+@media screen and (max-width: 768px) {
+  #bigButton {
+    width: 40vw;  /* Larger on small screens */
+    height: auto; /* Keep aspect ratio for mobile */
+  }
+}
 
-      .title {
-        font-size: clamp(0.8rem, 3vw, 1.2rem);
-      }
+@media screen and (max-width: 480px) {
+  #bigButton {
+    width: 80vw;  /* Maximize width on very small screens */
+    height: auto; /* Keep aspect ratio */
+  }
+}
 
-      #bigButton {
-        width: clamp(150px, 40vw, 200px);
-        height: clamp(150px, 40vw, 200px);
-        max-width: 40vh;
-        max-height: 40vh;
-      }
-
-      #status {
-        font-size: clamp(0.75rem, 2.5vw, 1rem);
-      }
-    }
-
-    /* =========================
-       VERY TALL SCREENS
-       ========================= */
-    @media (min-aspect-ratio: 1/2) and (orientation: portrait) {
-      .sci-fi-frame {
-        max-height: 20vh;
-      }
-
-      #bigButton {
-        width: clamp(200px, 45vw, 280px);
-        height: clamp(200px, 45vw, 280px);
-        max-width: 35vh;
-        max-height: 35vh;
-      }
-    }
+@media screen and (max-width: 320px) {
+  #bigButton {
+    width: 90vw; /* Almost full width for ultra-small screens */
+    height: auto; /* Maintain aspect ratio */
+  }
+}

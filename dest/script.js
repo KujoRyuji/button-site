@@ -1,34 +1,32 @@
 const button = document.getElementById("bigButton");
-let pressCount = 0; // Track number of presses (max 2)
-let isWaiting = false; // Track if button is in cooldown
+
+let pressCount = 0;
+let isWaiting = false;
+
+const breathingFilter = "drop-shadow(0 0 15px rgba(0, 255, 220, 0.7)) drop-shadow(0 0 35px rgba(0, 255, 220, 0.5)) drop-shadow(0 0 75px rgba(0, 255, 220, 0.3))";
+const ledOnFilter = "drop-shadow(0 0 40px rgba(0, 255, 220, 1)) drop-shadow(0 0 70px rgba(0, 255, 220, 0.9)) drop-shadow(0 0 150px rgba(0, 255, 220, 0.7))";
 
 button.addEventListener("click", () => {
-  // Block clicks if currently waiting
-  if (isWaiting) return;
-  
+  if (isWaiting) return; // Prevent double clicking during waiting state
+
   if (pressCount === 0) {
-    // FIRST PRESS: Glow temporarily
+    // First press: Transition from breathing to LED-on state
     pressCount = 1;
-    isWaiting = true; // Lock the button
-    
-    button.classList.add("active");
-    button.style.cursor = "pointer"; // Show it's locked
-    button.style.opacity = "1";
-    
-    // After 3 seconds, fade back to off and unlock
+    isWaiting = true;
+
+    // Transition to led-on state smoothly
+    button.style.filter = ledOnFilter;
+
+    // Wait for 3 seconds, then go back to breathing
     setTimeout(() => {
-      button.classList.remove("active");
-      isWaiting = false; // Unlock the button
-      button.style.cursor = "pointer"; // Restore clickable cursor
-      button.style.opacity = "1";
-    }, 3000);
-    
+      button.style.filter = breathingFilter; // Go back to breathing effect
+      isWaiting = false;
+    }, 3000); // 3 seconds delay before returning to breathing
+
   } else if (pressCount === 1) {
-    // SECOND PRESS: Glow permanently
+    // Second press: Transition to LED-on and stay there
     pressCount = 2;
-    
-    button.classList.add("active");
-    button.style.cursor = "default"; // Show it's complete
+    button.style.filter = ledOnFilter; // Stay in LED-on state
+    button.style.cursor = "default"; // Disable further clicks
   }
-  // If pressCount === 2, do nothing (button is locked permanently)
 });
