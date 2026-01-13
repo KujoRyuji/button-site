@@ -43,7 +43,7 @@ window.addEventListener("resize", updateOrientation);
 updateOrientation();
 
 
-button.addEventListener("contextmenu", e => {
-  // Only block contextmenu if it wasn't a normal short press
-  setTimeout(() => e.preventDefault(), 0);
-});
+// button.addEventListener("contextmenu", e => {
+//   // Only block contextmenu if it wasn't a normal short press
+//   setTimeout(() => e.preventDefault(), 0);
+// });
