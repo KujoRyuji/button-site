@@ -114,13 +114,16 @@
       display: block;
       margin: 0 auto;
       
-      -webkit-tap-highlight-color: transparent;
-      transition: filter 2s ease-in-out, transform 0.2s ease;
+      transition: filter 1s ease-in-out, transform 0.2s ease;
     }
 
-    /* #bigButton:active {
+    #bigButton:active {
       transform: scale(0.95);
-    } */
+      filter: drop-shadow(0 0 40px rgba(0, 255, 220, 1))
+              drop-shadow(0 0 70px rgba(0, 255, 220, 0.9))
+              drop-shadow(0 0 150px rgba(0, 255, 220, 0.7));
+      transition: filter 2s ease-in-out;
+    }
 
   /* =========================
    Breathing effect for LED glow (animated) 
@@ -156,6 +159,10 @@
   #bigButton {
     width: 70vw;  /* Larger on small screens */
     height: auto; /* Keep aspect ratio for mobile */
+  }
+
+  .button-wrapper {
+    top: 63%;
   }
 }
 
